@@ -27,6 +27,7 @@ class Piece {
     public:
         Piece(bool _isWhite, char _id, PieceType _type = PieceType::NONE, std::pair<int, int> _startPosition = std::pair<int, int>(0, 0));
 
+        // A copy function 
         Piece operator=(const Piece* other) {
             if (this == other) {
                 return *this;
@@ -40,6 +41,7 @@ class Piece {
             return *this;
         }
 
+        // The comparision functions
         bool operator==(const Piece* other) {
             return (this->identifier == other->identifier && this->position == other->position && this->isWhite == other->isWhite);
         }
@@ -48,6 +50,7 @@ class Piece {
             return (this->identifier != other->identifier && this->position != other->position && this->isWhite != other->isWhite);
         }
 
+        // A display function
         friend std::ostream& operator<<(std::ostream& os, const Piece& piece);
 
         Piece() : isWhite(false), identifier(' '), position(std::pair<int, int>(0, 0)) {};
