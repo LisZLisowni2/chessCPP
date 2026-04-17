@@ -73,6 +73,7 @@ void Plane::display() {
     }
 }
 
+// Preview the cursor of user
 void Plane::displayHighlight(std::pair<int, int> position) {
     for (int i = 0; i < 10; i++) {
         if (i == 0) {
@@ -109,6 +110,7 @@ void Plane::displayHighlight(std::pair<int, int> position) {
     }
 }
 
+// Previews the piece at its final position without modifying board state
 void Plane::displayHighlight(Move move) {
     for (int i = 0; i < 10; i++) {
         if (i == 0) {
@@ -147,6 +149,8 @@ std::shared_ptr<Piece> Plane::pieceFromPos(std::pair<int, int> position) {
     return table[position.second][position.first];
 }
 
+// Applies move in order: handle capture → move rook if castling → 
+// reset table → move piece → handle promotion → rebuild table
 void Plane::update(Move move) {
     if (move.isCapturing) {
         std::shared_ptr<Piece> capturedPiece;
@@ -179,7 +183,7 @@ void Plane::update(Move move) {
     for (int i = 0; i < 8; i++) {
         for (int j = 0; j < 8; j++) {
             auto piece = pieceFromPos({i, j});
-            if (piece != nullptr) piece->setIsNowMoved(false);
+            if (piece != nullptr) piece->setIsNowMoved(false); // Clear double-push flag from last turn; en passant is only valid immediately after
             
             table[i][j] = nullptr;
         }

@@ -24,6 +24,7 @@ void clearScreen() {
     std::cout << "\033[2J\033[H";
 }
 
+// Get a single character from the keyboard
 char getch() {
     #ifdef _WIN32
         return getch()
@@ -69,6 +70,7 @@ char getch() {
     #endif
 }
 
+// Select the piece based on game state, more precisely board state
 std::pair<int, int> selection(Game game) {
     int posX = 0;
     int posY = 0;
@@ -105,6 +107,7 @@ std::pair<int, int> selection(Game game) {
     }
 }
 
+// Select the move based on game state and availables moves
 Move selectionMove(Game game, std::vector<Move> moves) {
     int selected = 0;
 

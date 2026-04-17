@@ -19,11 +19,11 @@ enum PieceType {
 class Piece {
     private:
         bool isWhite;
-        char identifier;
+        char identifier; // lowercase = white, uppercase = black
         PieceType type;
         std::pair<int, int> position;
-        bool isMoved;
-        bool isNowMoved;
+        bool isMoved;      // True if this piece has moved at any point in the game (used for castling)
+        bool isNowMoved;   // True only during the immediately following turn (used for en passant)
     public:
         Piece(bool _isWhite, char _id, PieceType _type = PieceType::NONE, std::pair<int, int> _startPosition = std::pair<int, int>(0, 0));
 
@@ -47,7 +47,7 @@ class Piece {
         }
 
         bool operator!=(const Piece* other) {
-            return (this->identifier != other->identifier && this->position != other->position && this->isWhite != other->isWhite);
+            return !(*this == other);
         }
 
         // A display function

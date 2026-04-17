@@ -11,7 +11,7 @@
 class Game {
     private:
         bool isWhiteTurn;
-        std::vector<MoveHistory> history;
+        std::vector<MoveHistory> history; // Ununsed currently
         Plane plane;
     public:
         Game() : isWhiteTurn(true), plane(Plane()) {};
@@ -23,7 +23,6 @@ class Game {
         bool checkIfIsGameOver();
         bool isGameOver();
         bool checkIfMoveIsSafe(Move& move);
-        // bool checkIfIsStalemate();
         void run();
 };
 

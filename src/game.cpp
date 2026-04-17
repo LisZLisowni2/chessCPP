@@ -65,6 +65,7 @@ std::vector<Move> Game::legalMoves(std::shared_ptr<Piece> piece) {
             }
             
             // En passant
+            // dir doubles as both the forward direction and the lateral offset for en passant
             int enPassantRank = isWhite ? 3 : 4;
             char enemyID = isWhite ? 'I' : 'i';
             auto enemyPiece = plane.pieceFromPos({x + dir, y});
@@ -164,7 +165,8 @@ std::vector<Move> Game::legalMoves(std::shared_ptr<Piece> piece) {
                     addMove(finalPos.first, finalPos.second, false);
                 }
             }
-
+            
+            // Check squares between king (col 4) and rook are empty
             auto castling = [&](int xCheck, int xFinal) {
                 int posY = isWhite ? 7 : 0;
                 char ID = isWhite ? 'r' : 'R';
@@ -213,7 +215,7 @@ std::vector<Move> Game::legalMoves(std::shared_ptr<Piece> piece) {
 bool Game::checkIfIsCheck() {
     char kingCallsign = isWhiteTurn ? 'k' : 'K';
     auto kingPiece = plane.findPiece(kingCallsign);
-
+    
     for (auto piece : plane.getPieces()) {
         if (piece->getIsWhite() != isWhiteTurn) {
             auto pos = piece->getPosition();
@@ -231,6 +233,7 @@ bool Game::checkIfIsCheck() {
     return false;
 }
 
+// Temporarily applies the move, checks if it leaves own king in check, then undoes it
 bool Game::checkIfMoveIsSafe(Move& move) {
     auto piece = move.piece;
     auto startPos = piece->getPosition();
@@ -254,6 +257,7 @@ bool Game::checkIfMoveIsSafe(Move& move) {
     return !kingInDanger;
 }
 
+// No legal safe moves = checkmate or stalemate; caller distinguishes via checkIfIsCheck()
 bool Game::checkIfIsGameOver() {
     char kingCallsign = isWhiteTurn ? 'k' : 'K';
     auto kingPiece = plane.findPiece(kingCallsign);

@@ -10,7 +10,7 @@
 
 class Plane {
     private:
-        std::shared_ptr<Piece> table[8][8];
+        std::shared_ptr<Piece> table[8][8]; // table[y][x] — row-major, y=0 is black's back rank, y=7 is white's back rank
         std::vector<std::shared_ptr<Piece>> pieces;
     public:
         Plane();

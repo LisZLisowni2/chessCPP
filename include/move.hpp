@@ -13,9 +13,9 @@ struct Move
     std::pair<int, int> finalPos;
     bool isCapturing;
     bool isCastling;
-    bool isEnPassant;
-    bool isPromoting;
-    bool isCheck;
+    bool isEnPassant;  // Set only if pawn captures an adjacent pawn that just double-moved
+    bool isPromoting;  // Set if pawn reaches the back rank
+    bool isCheck;      // Unused currently
 
     Move(std::shared_ptr<Piece> _piece, std::pair<int, int> _finalPos, bool _isCapturing) {
         piece = _piece;
