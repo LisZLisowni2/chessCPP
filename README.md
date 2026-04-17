@@ -29,18 +29,20 @@ A simple chess engine and game interface written in modern C++17.
 
 Using clang:
 ```bash
+    mkdir build
     clang++ -o chess -I include src/* utils/*
 ```
 
 Using g++:
 ```bash
+    mkdir build
     g++ -o chess -I include src/* utils/*
 ```
 
 ### To run app:
 
 ```bash
-    ./chess
+    ./build/chess
 ```
 
 ## Architecture
